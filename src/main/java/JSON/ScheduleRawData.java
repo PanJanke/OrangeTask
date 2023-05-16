@@ -1,5 +1,7 @@
 package JSON;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class ScheduleRawData {

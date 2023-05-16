@@ -7,6 +7,7 @@ public class TextData {
     public String getStart() {
         return start;
     }
+
     public String getEnd() {
         return end;
     }

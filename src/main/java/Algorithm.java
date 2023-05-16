@@ -1,6 +1,5 @@
 import JSON.ScheduleDataReader;
 import JSON.ScheduleRawData;
-import JSON.TextData;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -9,6 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Algorithm {
+
+    public static List<TimeSlot> generateMeetingAlgorithm(String path1, String path2, Duration meetingDuration) throws IOException {
+        ScheduleRawData rawA = ScheduleDataReader.readScheduleDataFromFile(path1);
+        ScheduleRawData rawB = ScheduleDataReader.readScheduleDataFromFile(path2);
+        ScheduleData A = new ScheduleData(rawA);
+        ScheduleData B = new ScheduleData(rawB);
+
+        return generateMeeting(A, B, meetingDuration);
+    }
 
     public static List<TimeSlot> generateMeeting(ScheduleData schedule1, ScheduleData schedule2, Duration meetingDuration) {
         List<TimeSlot> availableTimeSlots = new ArrayList<>();
@@ -33,9 +41,7 @@ public class Algorithm {
             }
         }
 
-        List<TimeSlot> mergedTimeSlots = mergeTimeSlots(availableTimeSlots);
-
-        return mergedTimeSlots;
+        return mergeTimeSlots(availableTimeSlots);
     }
 
     public static List<TimeSlot> mergeTimeSlots(List<TimeSlot> timeSlots) {
@@ -78,27 +84,22 @@ public class Algorithm {
     }
 
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
+
+        String filePath = "calendar1.json";
+        String filePath2 = "calendar2.json";
+        Duration meetingDuration = Duration.ofMinutes(30);
+
+        List<TimeSlot> result = null;
+
         try {
-            String filePath = "calendar1.json";
-            String filePath2 = "calendar2.json";
-            ScheduleRawData rawA = ScheduleDataReader.readScheduleDataFromFile(filePath);
-            ScheduleRawData rawB = ScheduleDataReader.readScheduleDataFromFile(filePath2);
-            ScheduleData A = new ScheduleData(rawA);
-            ScheduleData B = new ScheduleData(rawB);
-
-            Algorithm algorithm = new Algorithm();
-
-            Duration meetingDuration = Duration.ofMinutes(30);
-
-           List<TimeSlot> result = algorithm.generateMeeting(A,B,meetingDuration);
-
-            for (TimeSlot t: result) {
-                System.out.println(t.toString());
-            }
-
+            result = generateMeetingAlgorithm(filePath, filePath2, meetingDuration);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for (TimeSlot t : result) {
+            System.out.println(t.toString());
         }
 
 

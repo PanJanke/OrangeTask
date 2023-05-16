@@ -4,6 +4,7 @@ import JSON.TextData;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ScheduleData {
 
 
@@ -23,7 +24,7 @@ public class ScheduleData {
         return plannedMeetings;
     }
 
-    public ScheduleData(ScheduleRawData scheduleRawData){
+    public ScheduleData(ScheduleRawData scheduleRawData) {
         this.start = LocalTime.parse(scheduleRawData.getWorkingHours().getStart());
         this.end = LocalTime.parse(scheduleRawData.getWorkingHours().getEnd());
 
