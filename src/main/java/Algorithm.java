@@ -57,7 +57,7 @@ public class Algorithm {
                 currentSlot = nextSlot;
             }
         }
-        mergedSlots.add(currentSlot); // Add the last slot
+        mergedSlots.add(currentSlot);
 
         return mergedSlots;
     }
@@ -65,13 +65,13 @@ public class Algorithm {
     public static boolean isAvailable(LocalTime start, LocalTime end, List<TimeSlot> meetings) {
         for (TimeSlot meeting : meetings) {
             if (start.isBefore(meeting.getEnd()) && end.isAfter(meeting.getStart())) {
-                return false; // Overlapping meeting found
+                return false; // overlapping
             }
             if (start.equals(meeting.getStart()) || end.equals(meeting.getEnd())) {
-                return false; // Meeting starts or ends at the same time as another meeting
+                return false; // starts or ends at the same time as another meeting
             }
             if (start.isAfter(meeting.getStart()) && end.isBefore(meeting.getEnd())) {
-                return false; // Meeting is entirely within another meeting
+                return false; // Meeting is entirely inside another meeting
             }
         }
         return true;
@@ -96,7 +96,7 @@ public class Algorithm {
             for (TimeSlot t: result) {
                 System.out.println(t.toString());
             }
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
